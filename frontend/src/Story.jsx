@@ -19,7 +19,7 @@ export default function Story({ theme }) {
   };
 
   return (
-    <div>
+    <div style={{ width: "1000px" }}>
       <Button variant="contained" onClick={generateStory}>
         Generate
       </Button>

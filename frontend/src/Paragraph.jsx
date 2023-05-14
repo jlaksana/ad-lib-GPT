@@ -1,10 +1,14 @@
 import { Button, TextField } from "@mui/material";
+import { useState } from "react";
 
 function Paragraph({ paragraph }) {
+  const [finished, setFinished] = useState("");
+  const [loading, setLoading] = useState(false);
   const adLibArray = paragraph.split(" ");
   const inputIndices = [];
 
   const handleSubmit = () => {
+    setLoading(true);
     const inputs = document.querySelectorAll("input");
     const inputValues = [];
     inputs.forEach((input, i) => {
@@ -15,6 +19,8 @@ function Paragraph({ paragraph }) {
       adLibArray[index] = inputValues[i];
     });
     console.log(adLibArray.join(" "));
+    setFinished(adLibArray.join(" "));
+    setLoading(false);
   };
 
   return paragraph ? (
@@ -43,6 +49,8 @@ function Paragraph({ paragraph }) {
       <Button variant="contained" onClick={handleSubmit}>
         Submit
       </Button>
+      {loading && <p>Loading...</p>}
+      {finished && <p>{finished}</p>}
     </>
   ) : null;
 }
