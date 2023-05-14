@@ -20,7 +20,7 @@ export default function Story({ theme }) {
 
   return (
     <div style={{ width: "1000px" }}>
-      <Button variant="contained" onClick={generateStory}>
+      <Button variant="contained" onClick={generateStory} disabled={loading}>
         Generate
       </Button>
       {loading && <p>Loading...</p>}

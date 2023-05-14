@@ -7,7 +7,7 @@ function Paragraph({ paragraph }) {
   const adLibArray = paragraph.split(" ");
   const inputIndices = [];
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setLoading(true);
     const inputs = document.querySelectorAll("input");
     const inputValues = [];
@@ -18,8 +18,16 @@ function Paragraph({ paragraph }) {
     inputIndices.forEach((index, i) => {
       adLibArray[index] = inputValues[i];
     });
-    console.log(adLibArray.join(" "));
-    setFinished(adLibArray.join(" "));
+    // console.log(adLibArray.join(" "));
+    const story = adLibArray.join(" ")
+    const response = await fetch(
+      `http://localhost:5005/story/finish?story=${story}`
+    );
+    // console.log(response);
+    const data = await response.json();
+    // console.log(data);
+    // setStory(data.story);
+    setFinished(data.story);
     setLoading(false);
   };
 
@@ -46,7 +54,7 @@ function Paragraph({ paragraph }) {
           return word + " ";
         })}
       </p>
-      <Button variant="contained" onClick={handleSubmit}>
+      <Button variant="contained" onClick={handleSubmit} disabled={loading}>
         Submit
       </Button>
       {loading && <p>Loading...</p>}
