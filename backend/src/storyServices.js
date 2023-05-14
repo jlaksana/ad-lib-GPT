@@ -7,16 +7,6 @@ const configuration = new openai.Configuration({
 });
 
 async function getStory(theme) {
-  if (!configuration.apiKey) {
-    res.status(500).json({
-      error: {
-        message:
-          "OpenAI API key not configured, please follow instructions in README.md",
-      },
-    });
-    return;
-  }
-
   const chat = new openai.OpenAIApi(configuration);
 
   const completion = await chat.createCompletion({
@@ -26,7 +16,7 @@ async function getStory(theme) {
     max_tokens: 1024,
   });
 
-  return completion.data.choices[0].text;
+  return { story: completion.data.choices[0].text };
 }
 
 function generatePrompt(theme) {
