@@ -10,10 +10,22 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
+const storyEndpoint = require("./storyRoutes.js");
+
+
+
+app.use("/story", storyEndpoint);
+
+
 app.get("/", (req, res) => {
-  res.send("Hello World from UML2Code API!");
+  res.send("Hello World");
 });
 
-app.listen(5000, () => {
+
+
+app.listen(5005, () => {
   console.log(`Api running at http://localhost:5000`);
+  
+
 });
