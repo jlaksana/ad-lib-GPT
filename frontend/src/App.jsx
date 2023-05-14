@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { MenuItem, TextField } from "@mui/material";
+import { useState } from "react";
+import "./App.css";
+import Story from "./Story";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [theme, setTheme] = useState("");
+
+  const themes = ["space", "ocean", "fantasy"];
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Welcome to AdLibGPT</h1>
+      <TextField
+        id="theme-select"
+        select
+        label="Theme"
+        value={theme}
+        onChange={(e) => setTheme(e.target.value)}
+        helperText="Select a theme for you adlib"
+        sx={{ width: 200 }}
+      >
+        {themes.map((option) => (
+          <MenuItem key={option} value={option}>
+            {option}
+          </MenuItem>
+        ))}
+      </TextField>
+      {theme && <Story theme={theme} />}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
